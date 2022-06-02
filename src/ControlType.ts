@@ -12,3 +12,4 @@ export type ControlType =
     | "!flash" 
     | "!startpos" 
     | "_pause"
+    | string

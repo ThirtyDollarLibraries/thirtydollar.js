@@ -50,7 +50,20 @@ export class Sequence {
         this.sounds.push({ type: item, pitch: pitch, modifier: modifier })
     }
 
-    static parseFromString() {
-        // TODO: finish this
+    static parseFromString(sequence: string): Sequence {
+        let seq = new Sequence([]);
+        const items = sequence.split('|')
+
+        items.forEach((item, index) => {
+            const sections: string[] = item.split('@');
+
+            switch (sections.length) {
+                case 1: seq.addItem(sections[0], 0, Modifier.Set)
+                case 2: seq.addItem(sections[0], parseFloat(sections[1]), Modifier.Set)
+                case 3: seq.addItem(sections[0], parseFloat(sections[1]), sections[2] as Modifier)
+            }
+        })
+
+        return seq
     }
 }
