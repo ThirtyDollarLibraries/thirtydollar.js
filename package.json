@@ -1,6 +1,6 @@
 {
   "name": "thirtydollar.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A JavaScript library for parsing and building Thirty Dollar Website sequences",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
