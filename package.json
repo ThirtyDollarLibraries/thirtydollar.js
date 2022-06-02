@@ -7,14 +7,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/4techguns/thirtydollar.ts.git"
+    "url": "git+https://github.com/4techguns/thirtydollar.js.git"
   },
   "author": "4techguns",
   "license": "GPL-2.0-or-later",
   "bugs": {
-    "url": "https://github.com/4techguns/thirtydollar.ts/issues"
+    "url": "https://github.com/4techguns/thirtydollar.js/issues"
   },
-  "homepage": "https://github.com/4techguns/thirtydollar.ts#readme",
+  "homepage": "https://github.com/4techguns/thirtydollar.js#readme",
   "devDependencies": {
     "@types/node": "^17.0.38"
   },
