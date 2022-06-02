@@ -1,8 +1,7 @@
 {
-  "name": "thirtydollar.ts",
+  "name": "thirtydollar.js",
   "version": "1.0.0",
-  "description": "A TypeScript library for parsing and building Thirty Dollar Website sequences",
-  "main": "index.js",
+  "description": "A JavaScript library for parsing and building Thirty Dollar Website sequences",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +14,16 @@
   "bugs": {
     "url": "https://github.com/4techguns/thirtydollar.ts/issues"
   },
-  "homepage": "https://github.com/4techguns/thirtydollar.ts#readme"
+  "homepage": "https://github.com/4techguns/thirtydollar.ts#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.38"
+  },
+  "dependencies": {
+    "node-fetch": "^3.2.5"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ]
 }
