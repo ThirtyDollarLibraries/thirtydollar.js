@@ -16,7 +16,10 @@
   },
   "homepage": "https://github.com/4techguns/thirtydollar.js#readme",
   "devDependencies": {
-    "@types/node": "^17.0.38"
+    "@types/jest": "^28.1.0",
+    "@types/node": "^17.0.38",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.4"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

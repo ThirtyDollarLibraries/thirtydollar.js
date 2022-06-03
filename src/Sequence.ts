@@ -15,7 +15,7 @@ export class Sequence {
      * @returns The "compiled" sequence.
      */
     parseToString() {
-        let sa = this.sounds.map(snd => `${snd.type}@${snd.pitch ?? 0}${snd.modifier ?? ""}`)
+        let sa = this.sounds.map(snd => `${snd.type}${snd.repeatAmount == undefined ? "" : `=${snd.repeatAmount}` ?? ""}@${snd.pitch ?? 0}${snd.modifier ?? ""}`)
         return sa.join('|')
     }
 
@@ -32,8 +32,10 @@ export class Sequence {
      * @param units The units to pause for.
      * @param type The type of pause to take into consideration.
      */
-    pauseFor(units: number, type: "individualUnits" | "stopBlock") {
-        if (type == "individualUnits") {
+    pauseFor(units: number, type: "combined" | "individualUnits" | "stopBlock") {
+        if (type == "combined") {
+            this.sounds.push({ type: "_pause", repeatAmount: units })
+        } else if (type == "individualUnits") {
             for (let i = 0; i < units + 1; i++) this.sounds.push({ type: "_pause" })
         } else if (type == "stopBlock") {
             this.sounds.push({ type: "!stop", pitch: units })
@@ -46,8 +48,8 @@ export class Sequence {
      * @param pitch The pitch/value of the item.
      * @param modifier 
      */
-    addItem(item: SoundType | ControlType, pitch?: number, modifier?: Modifier) {
-        this.sounds.push({ type: item, pitch: pitch, modifier: modifier })
+    addItem(item: SoundType | ControlType, pitch?: number, modifier?: Modifier, repeatAmount?: number) {
+        this.sounds.push({ type: item, pitch: pitch, modifier: modifier, repeatAmount: repeatAmount })
     }
 
     static parseFromString(sequence: string): Sequence {
@@ -56,11 +58,12 @@ export class Sequence {
 
         items.forEach((item, index) => {
             const sections: string[] = item.split('@');
+            const equals: string[] = item.split('=');
 
             switch (sections.length) {
-                case 1: seq.addItem(sections[0], 0, Modifier.Set)
-                case 2: seq.addItem(sections[0], parseFloat(sections[1]), Modifier.Set)
-                case 3: seq.addItem(sections[0], parseFloat(sections[1]), sections[2] as Modifier)
+                case 1: seq.addItem(sections[0], 0, Modifier.Set, (equals.length > 1) ? parseInt(equals[1]) : null); break;
+                case 2: seq.addItem(sections[0], parseFloat(sections[1]), Modifier.Set, (equals.length > 1) ? parseInt(equals[1]) : null);break;
+                case 3: seq.addItem(sections[0], parseFloat(sections[1]), sections[2] as Modifier, (equals.length > 1) ? parseInt(equals[1]) : null);break;
             }
         })
 

@@ -17,5 +17,6 @@ export type Sound = {
     /**
      * The modifier to set on the item. Only works for control items.
      */
-    modifier?: Modifier
+    modifier?: Modifier,
+    repeatAmount?: number
 }
