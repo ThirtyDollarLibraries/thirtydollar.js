@@ -15,7 +15,7 @@ export class Sequence {
      * @returns The "compiled" sequence.
      */
     parseToString() {
-        let sa = this.sounds.map(snd => `${snd.type}${snd.repeatAmount == undefined ? "" : `=${snd.repeatAmount}` ?? ""}@${snd.pitch ?? 0}${snd.modifier ?? ""}`)
+        let sa = this.sounds.map(snd => `${snd.type}@${snd.pitch ?? 0}${snd.modifier ?? ""}${snd.repeatAmount == undefined ? "" : `=${snd.repeatAmount}` ?? ""}`)
         return sa.join('|')
     }
 
@@ -57,8 +57,8 @@ export class Sequence {
         const items = sequence.split('|')
 
         items.forEach((item, index) => {
-            const sections: string[] = item.split('@');
             const equals: string[] = item.split('=');
+            const sections: string[] = equals[0].split('@');
 
             switch (sections.length) {
                 case 1: seq.addItem(sections[0], 0, Modifier.Set, (equals.length > 1) ? parseInt(equals[1]) : null); break;

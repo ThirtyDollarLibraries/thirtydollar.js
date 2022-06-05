@@ -26,6 +26,11 @@ describe('1.1.0 features', () => {
         let seq = new Sequence([]);
 
         seq.addItem("boom", 0, Modifier.Set, 5)
-        expect(seq.parseToString()).toBe("boom=5@0")
+        expect(seq.parseToString()).toBe("boom@0=5")
+    })
+    it('should be able to parse repeat count', () => {
+        let seq = Sequence.parseFromString("boom@0=5")
+
+        expect(seq.sounds[0]).toStrictEqual(<Sound>{ type: "boom", pitch: 0, modifier: Modifier.Set, repeatAmount: 5 })
     })
 })
