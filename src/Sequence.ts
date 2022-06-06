@@ -54,17 +54,14 @@ export class Sequence {
 
     static parseFromString(sequence: string): Sequence {
         let seq = new Sequence([]);
-        const items = sequence.split('|')
+        const items = (sequence || "").replace(/\s/g, "").split('|')
 
-        items.forEach((item, index) => {
-            const equals: string[] = item.split('=');
-            const sections: string[] = equals[0].split('@');
+        items.forEach(x => {
+            let [data, count] = x.split("=")
+            let [main, pitch, num] = data.split("@")
+            if (!main || !data) return
 
-            switch (sections.length) {
-                case 1: seq.addItem(sections[0], 0, Modifier.Set, (equals.length > 1) ? parseInt(equals[1]) : null); break;
-                case 2: seq.addItem(sections[0], parseFloat(sections[1]), Modifier.Set, (equals.length > 1) ? parseInt(equals[1]) : null);break;
-                case 3: seq.addItem(sections[0], parseFloat(sections[1]), sections[2] as Modifier, (equals.length > 1) ? parseInt(equals[1]) : null);break;
-            }
+            for (let i=0; i<(count || 1); i++) seq.addItem(main, (isNaN(parseFloat(pitch))) ? 0 : parseFloat(pitch), num as Modifier ?? Modifier.Set, (isNaN(parseInt(count))) ? null : parseInt(count)); return
         })
 
         return seq
